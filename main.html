@@ -1,13 +1,44 @@
 <!DOCTYPE html>
-
 <html>
   <head>
     <link rel="stylesheet" href="styles.css" />
   </head>
-
   <body>
-    <!-- write the body here -->
+    <form id="ageForm">
+      <label for="name">Name:</label>
+      <input id="name" type="text" required>
+      <br><br>
+      <label for="age">Age:</label>
+      <input id="age" type="number" required>
+      <br><br>
+      <button id="btn" type="submit">Submit</button>
+    </form>
+    <script>
+      document.getElementById('ageForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const age = document.getElementById('age').value.trim();
 
-    <script type="text/javascript" src="./script.js"></script>
+        if (!name || !age) {
+          alert('Both fields are required');
+          return;
+        }
+
+        const validateAge = new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if (age >= 18) {
+              resolve(`Welcome, ${name}. You can vote.`);
+            } else {
+              reject(`Oh sorry ${name}. You aren't old enough.`);
+            }
+          }, 4000);
+        });
+
+        validateAge
+          .then(alert)
+          .catch(alert);
+      });
+    </script>
   </body>
 </html>
+
